@@ -13,7 +13,7 @@ export default function HomeAgenda() {
     <section className=" w-screen p-6  justify-center items-center container relative mx-auto my-[50px]">
       <div className=" text-primary block w-full z-10 relative mt-[50px] ">
         <p className=" text-[40px] font-bold lg:text-[54px]">Agenda</p>
-        <Timeline position="alternate">
+        <Timeline position="alternate" className="mt-16">
           <TimelineItem>
             <TimelineSeparator>
               <Typography variant="h6" className="font-sans" component="span">

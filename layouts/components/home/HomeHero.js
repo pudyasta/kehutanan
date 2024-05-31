@@ -7,7 +7,7 @@ export default function HomeHero() {
       <div className="  block w-full z-10 relative mt-[100px]">
         <div className="flex flex-col lg:flex-row items-center lg:my-[200px] my-[100px]">
           <Image
-            src="/images/logo_google.jpg"
+            src="/images/main_logo.png"
             width={200}
             height={200}
             alt="Artificial Intelligence"
