@@ -29,7 +29,7 @@ export default function HomeHero() {
             </p>
           </div>
         </div>
-        <div className="bg-primary h-1"></div>
+        <div className="bg-gradient-to-left h-1"></div>
       </div>
     </section>
   );

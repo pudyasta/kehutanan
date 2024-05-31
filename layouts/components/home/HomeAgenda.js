@@ -40,7 +40,7 @@ export default function HomeAgenda() {
                 <Box mt={4}>
                   <Typography
                     variant="body1"
-                    className="font-sans"
+                    className="font-sans text-white"
                     component="span"
                   >
                     Simbolisasi Penanaman Pohon dalam Rangka Hari Lingkungan
@@ -51,7 +51,7 @@ export default function HomeAgenda() {
                 <Box mt={4}>
                   <Typography
                     variant="body1"
-                    className="font-sans"
+                    className="font-sans text-white"
                     component="span"
                   >
                     Pameran Foto
@@ -61,7 +61,7 @@ export default function HomeAgenda() {
                 <Box mt={4}>
                   <Typography
                     variant="body1"
-                    className="font-sans"
+                    className="font-sans text-white"
                     component="span"
                   >
                     Seminar dan Loka Karya Sesi I dengan tema “Masa Depan Hutan
@@ -72,7 +72,7 @@ export default function HomeAgenda() {
                 <Box mt={4}>
                   <Typography
                     variant="body1"
-                    className="font-sans"
+                    className="font-sans text-white"
                     component="span"
                   >
                     Launching Film “Tanah Kita”
@@ -82,7 +82,7 @@ export default function HomeAgenda() {
                 <Box mt={4}>
                   <Typography
                     variant="body1"
-                    className="font-sans"
+                    className="font-sans text-white"
                     component="span"
                   >
                     Seminar dan Loka Karya Sesi II dengan tema Kolaborasi Para
@@ -109,7 +109,7 @@ export default function HomeAgenda() {
                 <Box mt={4}>
                   <Typography
                     variant="body1"
-                    className="font-sans"
+                    className="font-sans text-white"
                     component="span"
                   >
                     Konsolidasi KPH Jawa
@@ -119,7 +119,7 @@ export default function HomeAgenda() {
                 <Box mt={4}>
                   <Typography
                     variant="body1"
-                    className="font-sans"
+                    className="font-sans text-white"
                     component="span"
                   >
                     Coaching Clinic Film Dokumenter bertema Lingkungan
@@ -129,7 +129,7 @@ export default function HomeAgenda() {
                 <Box mt={4}>
                   <Typography
                     variant="body1"
-                    className="font-sans"
+                    className="font-sans text-white"
                     component="span"
                   >
                     Bedah Buku “Hutan Memanggil” dan “Kemelut Tanah Kita”
@@ -140,7 +140,7 @@ export default function HomeAgenda() {
           </TimelineItem>
           <TimelineItem>
             <TimelineSeparator>
-              <Typography variant="h6" className="font-sans" component="span">
+              <Typography variant="h6" className="font-sans " component="span">
                 Selesai
               </Typography>
             </TimelineSeparator>
@@ -148,7 +148,7 @@ export default function HomeAgenda() {
           </TimelineItem>
         </Timeline>
       </div>
-      <div className="bg-primary h-1"></div>
+      <div className="bg-gradient-to-right h-1"></div>
     </section>
   );
 }
