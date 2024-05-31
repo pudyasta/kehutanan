@@ -11,7 +11,7 @@ export default function Header() {
           <div className="flex-[50%] flex flex-row">
             <Link href={"/"} className="flex items-center">
               <Image
-                src="/images/logo_google.jpg"
+                src="/images/main_logo.png"
                 alt="ornamen"
                 width={1000}
                 height={1000}
