@@ -11,7 +11,7 @@ import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import Typography from "@mui/material/Typography";
 import Image from "next/image";
-import { fetchPosts, fetchVote } from "@/utils/fetching";
+import { fetchPosts } from "@/utils/fetching";
 import { Skeleton } from "@mui/material";
 import axios from "axios";
 import { axiosInstance } from "@/utils/axios";
@@ -34,9 +34,17 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 const page = () => {
   const [open, setOpen] = useState(false);
   const [posts, setPosts] = useState(null);
-  const [ipNow, setIPNow] = useState("");
-  const [ip, setIP] = useState([]);
-  const [voted, setVoted] = useState(false);
+  const [ip, setIP] = useState("");
+  const [postId, setPostId] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   useEffect(() => {
     fetchPosts()
@@ -46,40 +54,19 @@ const page = () => {
       .catch((e) => {
         console.log(e);
       });
-    fetchVote()
-      .then((res) => {
-        setIP(res.data);
-        res.data.map((x) => {
-          setIP([...ip, x.attributes.ip]);
-        });
-      })
-      .catch((e) => {});
-    const fetchIP = async () => {
-      try {
-        const response = await axios.get("https://api.ipify.org?format=json");
-        console.log(ipNow);
-
-        setIPNow(response.data.ip);
-      } catch (error) {}
-    };
-
-    fetchIP();
   }, []);
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-  const handleClose = () => {
-    setOpen(false);
-  };
-
   const handleSubmit = async (id) => {
+    setLoading(true);
+    setError(null);
+    console.log(id);
     try {
+      const ipAddress = await axios.get("https://api.ipify.org?format=json");
       const response = await axiosInstance.post(
         "/votes",
         {
           data: {
-            ip: ipNow,
+            ip: ipAddress.data.ip,
             post_id: id,
           },
         },
@@ -89,8 +76,14 @@ const page = () => {
           },
         }
       );
-      setVoted(true);
-    } catch (error) {}
+
+      console.log("IPLog created:", response.data);
+      setLoading(false);
+    } catch (error) {
+      console.error("Error creating IPLog:", error);
+      setError("Error creating IPLog");
+      setLoading(false);
+    }
   };
 
   return (
@@ -151,7 +144,6 @@ const page = () => {
                     autoFocus
                     onClick={() => handleSubmit(i.id)}
                     variant="contained"
-                    disabled={voted || ip.includes(ipNow)}
                   >
                     Vote
                   </Button>

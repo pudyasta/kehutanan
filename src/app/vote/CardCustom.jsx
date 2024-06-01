@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Card, Inset, Strong, Text } from "@radix-ui/themes";
 
-const CardCustom = ({ onClick }) => {
+const CardCustom = ({ onClick, data }) => {
   return (
     <Box
       onClick={onClick}
@@ -10,7 +10,10 @@ const CardCustom = ({ onClick }) => {
       <Card size="2">
         <Inset clip="padding-box" side="top" pb="current">
           <img
-            src="https://images.unsplash.com/photo-1617050318658-a9a3175e34cb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80"
+            src={
+              process.env.NEXT_PUBLIC_BACKEND_URL +
+              data.attributes.photo.data.attributes.url
+            }
             alt="Bold typography"
             style={{
               display: "block",
@@ -21,10 +24,11 @@ const CardCustom = ({ onClick }) => {
             }}
           />
         </Inset>
-        <Text as="p" size="3">
-          <Strong>Typography</Strong> is the art and technique of arranging type
-          to make written language legible, readable and appealing when
-          displayed.
+        <Text as="h2" size="1" className="text-xl font-bold mt-10">
+          {data.attributes.author}
+        </Text>
+        <Text as="p" size="3" className="mt-1">
+          {data.attributes.description}
         </Text>
       </Card>
     </Box>

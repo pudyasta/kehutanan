@@ -15,13 +15,18 @@ export default function Header() {
                 alt="ornamen"
                 width={1000}
                 height={1000}
-                className="w-[40px] h-[40px]"
+                className="w-[60px] h-[60px]"
               />
               <Text className="text-sm lg:text-2xl font-bold ml-4">
                 Festival Inovasi Kehutanan UGM
               </Text>
             </Link>
           </div>
+          <a href={"/vote"} target="blank">
+            <div className="rounded-full outline outline-3 mr-4 outline-primary hover:bg-primary hover:cursor-pointer duration-100 text-sm lg:text-2xl text-white  py-2 px-4 lg:px-8 font-sans font-bold">
+              Presensi
+            </div>
+          </a>
           <Link href={"/vote"}>
             <div className="rounded-full bg-primary hover:bg-secondary hover:cursor-pointer duration-100 text-sm lg:text-2xl text-white py-2 px-4 lg:px-8 font-sans font-bold">
               VOTE NOW
