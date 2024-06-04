@@ -17,21 +17,23 @@ export default function Header() {
                 height={1000}
                 className="w-[60px] h-[60px]"
               />
-              <Text className="text-sm lg:text-2xl font-bold ml-4">
-                Festival Inovasi Kehutanan UGM
+              <Text className="text-sm lg:text-2xl font-bold ml-4 capitalize">
+                festival karya inovasi kehutanan 2024
               </Text>
             </Link>
           </div>
-          <a href={"/vote"} target="blank">
-            <div className="rounded-full outline outline-3 mr-4 outline-primary hover:bg-primary hover:cursor-pointer duration-100 text-sm lg:text-2xl text-white  py-2 px-4 lg:px-8 font-sans font-bold">
-              Presensi
-            </div>
-          </a>
-          <Link href={"/vote"}>
-            <div className="rounded-full bg-primary hover:bg-secondary hover:cursor-pointer duration-100 text-sm lg:text-2xl text-white py-2 px-4 lg:px-8 font-sans font-bold">
-              VOTE NOW
-            </div>
-          </Link>
+          <div className="flex md:flex-row flex-col gap-2  ">
+            <a href={"https://bit.ly/KunjunganFKIK24"} target="blank">
+              <div className="rounded-full outline outline-3 mr-4 outline-primary hover:bg-primary hover:cursor-pointer duration-100 text-sm lg:text-2xl text-white  py-2 px-4 lg:px-8 font-sans font-bold">
+                Presensi
+              </div>
+            </a>
+            <Link href={"/vote"}>
+              <div className="rounded-full bg-primary hover:bg-secondary hover:cursor-pointer duration-100 text-sm lg:text-2xl text-white py-2 px-4 lg:px-8 font-sans font-bold">
+                VOTE NOW
+              </div>
+            </Link>
+          </div>
         </div>
       </div>
       <div className="bg-gradient-to-right h-2"></div>

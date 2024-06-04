@@ -15,6 +15,9 @@ import { fetchPosts, fetchVote } from "@/utils/fetching";
 import { Skeleton } from "@mui/material";
 import axios from "axios";
 import { axiosInstance } from "@/utils/axios";
+import { Text } from "@radix-ui/themes";
+import Swal from "sweetalert2";
+import Cookies from "js-cookie";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
@@ -32,20 +35,21 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 }));
 
 const page = () => {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState([]);
   const [posts, setPosts] = useState(null);
   const [ipNow, setIPNow] = useState("");
   const [ip, setIP] = useState([]);
-  const [voted, setVoted] = useState(false);
+  const [voted, setVoted] = useState(true);
 
   useEffect(() => {
     fetchPosts()
       .then((res) => {
         setPosts(res.data);
+        res.data.map((x) => {
+          setOpen([...open, false]);
+        });
       })
-      .catch((e) => {
-        console.log(e);
-      });
+      .catch((e) => {});
     fetchVote()
       .then((res) => {
         setIP(res.data);
@@ -54,10 +58,10 @@ const page = () => {
         });
       })
       .catch((e) => {});
+    setVoted(Cookies.get("token") ? true : false);
     const fetchIP = async () => {
       try {
         const response = await axios.get("https://api.ipify.org?format=json");
-        console.log(ipNow);
 
         setIPNow(response.data.ip);
       } catch (error) {}
@@ -66,31 +70,57 @@ const page = () => {
     fetchIP();
   }, []);
 
-  const handleClickOpen = () => {
-    setOpen(true);
+  const handleClickOpen = (id) => {
+    setOpen(() => {
+      const newOpen = [...open];
+      newOpen[id] = true;
+      return newOpen;
+    });
   };
-  const handleClose = () => {
-    setOpen(false);
+  const handleClose = (id) => {
+    setOpen(() => {
+      const newOpen = [...open];
+      newOpen[id] = false;
+      return newOpen;
+    });
   };
 
   const handleSubmit = async (id) => {
-    try {
-      const response = await axiosInstance.post(
-        "/votes",
-        {
-          data: {
-            ip: ipNow,
-            post_id: id,
-          },
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      setVoted(true);
-    } catch (error) {}
+    Swal.fire({
+      title: "Apakah anda yakin?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Ya!",
+      zIndex: 100,
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          const response = await axiosInstance.post(
+            "/votes",
+            {
+              data: {
+                ip: ipNow,
+                post_id: id,
+              },
+            },
+            {
+              headers: {
+                "Content-Type": "application/json",
+              },
+            }
+          );
+          setVoted(true);
+          Cookies.set("token", "x", { expires: 7 });
+          Swal.fire({
+            title: "Vote tersimpan",
+            text: "",
+            icon: "success",
+          });
+        } catch (error) {}
+      }
+    });
   };
 
   return (
@@ -109,20 +139,23 @@ const page = () => {
               <Skeleton className="bg-white" width="40%" />
             </div>
           ))
-        : posts.map((i) => (
+        : posts.map((i, idx) => (
             <div key={i.id}>
-              <CardCustom onClick={handleClickOpen} data={i} />
+              <CardCustom onClick={() => handleClickOpen(idx)} data={i} />
               <BootstrapDialog
-                onClose={handleClose}
+                onClose={() => handleClose(idx)}
                 aria-labelledby="customized-dialog-title"
-                open={open}
+                className="max-h-[90vh] z-50"
+                open={open[idx]}
               >
                 <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
-                  {i.attributes.author}
+                  <Text as="h2" size="1" className="text-xl font-bold block ">
+                    {i.attributes.title}
+                  </Text>
                 </DialogTitle>
                 <IconButton
                   aria-label="close"
-                  onClick={handleClose}
+                  onClick={() => handleClose(idx)}
                   sx={{
                     position: "absolute",
                     right: 8,
@@ -136,22 +169,23 @@ const page = () => {
                   <Image
                     src={
                       process.env.NEXT_PUBLIC_BACKEND_URL +
-                      i.attributes.photo.data.attributes.url
+                      i.attributes.photo.data.attributes.formats.large.url
                     }
                     width={500}
                     className="w-full"
                     height={100}
                   />
-                  <Typography gutterBottom>
+
+                  <Text as="h2" size="1" className="text-md my-3  block">
                     {i.attributes.description}
-                  </Typography>
+                  </Text>
                 </DialogContent>
                 <DialogActions>
                   <Button
                     autoFocus
                     onClick={() => handleSubmit(i.id)}
                     variant="contained"
-                    disabled={voted || ip.includes(ipNow)}
+                    disabled={voted}
                   >
                     Vote
                   </Button>

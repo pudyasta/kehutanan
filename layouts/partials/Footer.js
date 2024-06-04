@@ -9,7 +9,7 @@ const Footer = () => {
         <div className="flex justify-center items-center mb-2">
           <span className="text-lg">Find us on</span>
           <a
-            href="https://www.instagram.com"
+            href="https://www.instagram.com/pengelolaanhutan_ugm/"
             target="_blank"
             rel="noopener noreferrer"
             className="ml-2"

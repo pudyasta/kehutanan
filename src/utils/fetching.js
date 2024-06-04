@@ -5,7 +5,9 @@ export const fetchPosts = async () => {
   return res.data;
 };
 export const fetchVote = async () => {
-  const res = await axiosInstance.get(`/votes/?populate=*`);
+  const res = await axiosInstance.get(
+    `/votes/?populate=*?pagination[page]=1&pagination[pageSize]=50`
+  );
   return res.data;
 };
 
