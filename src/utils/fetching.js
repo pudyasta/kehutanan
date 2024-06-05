@@ -5,10 +5,17 @@ export const fetchPosts = async () => {
   return res.data;
 };
 export const fetchVote = async () => {
-  const res = await axiosInstance.get(
-    `/votes/?populate=*?pagination[page]=1&pagination[pageSize]=50`
-  );
-  return res.data;
+  const res = await axiosInstance.get(`/votes/?populate=*`);
+
+  const countMap = res.data.data.reduce((acc, item) => {
+    acc[item.attributes.post_id] = (acc[item.attributes.post_id] || 0) + 1;
+    return acc;
+  }, {});
+
+  const sortedPostIdsWithCount = Object.entries(countMap)
+    .sort((a, b) => b[1] - a[1])
+    .map((entry) => ({ id: parseInt(entry[0]), count: entry[1] }));
+  return sortedPostIdsWithCount;
 };
 
 export const fetchGalleryIntro = async () => {

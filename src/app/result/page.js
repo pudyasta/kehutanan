@@ -157,9 +157,14 @@
 
 // export default page;
 import React from "react";
+import Result from "../../../layouts/components/result/Result";
 
 const page = () => {
-  return <div>page</div>;
+  return (
+    <>
+      <Result />
+    </>
+  );
 };
 
 export default page;
