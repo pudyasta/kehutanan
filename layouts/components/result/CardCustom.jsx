@@ -36,6 +36,9 @@ const CardCustom = ({ onClick, data, count }) => {
         <Text as="p" size="4" className="mt-1 text-darkGold text-xl font-bold">
           {"Juara " + count}
         </Text>
+        <Text as="h2" size="1" className="text-md block ">
+          {data?.attributes?.author}
+        </Text>
         <Text as="h2" size="1" className="text-xl font-bold block ">
           {data?.attributes?.title}
         </Text>
