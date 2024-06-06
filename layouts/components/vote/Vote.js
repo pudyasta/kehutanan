@@ -181,13 +181,8 @@ const Vote = () => {
                   </Text>
                 </DialogContent>
                 <DialogActions>
-                  <Button
-                    autoFocus
-                    onClick={() => handleSubmit(i.id)}
-                    variant="contained"
-                    disabled={voted}
-                  >
-                    Vote
+                  <Button autoFocus variant="contained" disabled={true}>
+                    Voted
                   </Button>
                 </DialogActions>
               </BootstrapDialog>

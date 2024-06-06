@@ -17,7 +17,7 @@ import { axiosInstance } from "@/utils/axios";
 import { Text } from "@radix-ui/themes";
 import Swal from "sweetalert2";
 import Cookies from "js-cookie";
-import CardCustom from "../vote/CardCustom";
+import CardCustom from "./CardCustom";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
@@ -53,6 +53,7 @@ const Result = () => {
     fetchVote()
       .then((res) => {
         setVoteCount(res);
+        console.log(res);
       })
       .catch((e) => {});
     setVoted(Cookies.get("token") ? true : false);
@@ -143,7 +144,7 @@ const Result = () => {
                   <CardCustom
                     onClick={() => handleClickOpen(idx)}
                     data={posts[voteCount[idx]?.id - 4]}
-                    count={voteCount[idx]?.count}
+                    count={voteCount[idx]}
                   />
                   <BootstrapDialog
                     onClose={() => handleClose(idx)}
