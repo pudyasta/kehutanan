@@ -50,7 +50,7 @@ const Result = () => {
         });
       })
       .catch((e) => {});
-    setVoteCount([{ id: 25 }, { id: 16 }, { id: 22 }]);
+    setVoteCount([{ id: 25 }, { id: 22 }, { id: 16 }]);
   }, []);
 
   return (
