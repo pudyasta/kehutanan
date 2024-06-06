@@ -50,163 +50,46 @@ const Result = () => {
         });
       })
       .catch((e) => {});
-    fetchVote()
-      .then((res) => {
-        setVoteCount(res);
-        console.log(res);
-      })
-      .catch((e) => {});
-    setVoted(Cookies.get("token") ? true : false);
-    const fetchIP = async () => {
-      try {
-        const response = await axios.get("https://api.ipify.org?format=json");
-
-        setIPNow(response.data.ip);
-      } catch (error) {}
-    };
-
-    fetchIP();
+    setVoteCount([{ id: 25 }, { id: 16 }, { id: 22 }]);
   }, []);
 
-  const handleClickOpen = (id) => {
-    setOpen(() => {
-      const newOpen = [...open];
-      newOpen[id] = true;
-      return newOpen;
-    });
-  };
-  const handleClose = (id) => {
-    setOpen(() => {
-      const newOpen = [...open];
-      newOpen[id] = false;
-      return newOpen;
-    });
-  };
-
-  const handleSubmit = async (id) => {
-    Swal.fire({
-      title: "Apakah anda yakin?",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Ya!",
-      zIndex: 100,
-    }).then(async (result) => {
-      if (result.isConfirmed) {
-        try {
-          const response = await axiosInstance.post(
-            "/votes",
-            {
-              data: {
-                ip: ipNow,
-                post_id: id,
-              },
-            },
-            {
-              headers: {
-                "Content-Type": "application/json",
-              },
-            }
-          );
-          setVoted(true);
-          Cookies.set("token", "x", { expires: 7 });
-          Swal.fire({
-            title: "Vote tersimpan",
-            text: "",
-            icon: "success",
-          });
-        } catch (error) {}
-      }
-    });
-  };
-
   return (
-    <div className="grid xl:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-6 2xl:px-52 lg:px-32 px-4 py-16">
-      {!(posts && voteCount)
-        ? [...Array(8)].map((_, index) => (
-            <div key={index} className="w-full">
-              <Skeleton
-                className="bg-white"
-                variant="rectangular"
-                width="100%"
-                height={200}
-              />
-              <Skeleton className="bg-white" width="60%" />
-              <Skeleton className="bg-white" width="80%" />
-              <Skeleton className="bg-white" width="40%" />
-            </div>
-          ))
-        : posts.map(
-            (i, idx) =>
-              posts[voteCount[idx]?.id - 4] && (
-                <div key={i.id}>
-                  <CardCustom
-                    onClick={() => handleClickOpen(idx)}
-                    data={posts[voteCount[idx]?.id - 4]}
-                    count={voteCount[idx]}
-                  />
-                  <BootstrapDialog
-                    onClose={() => handleClose(idx)}
-                    aria-labelledby="customized-dialog-title"
-                    className="max-h-[90vh] z-50"
-                    open={open[idx]}
-                  >
-                    <DialogTitle
-                      sx={{ m: 0, p: 2 }}
-                      id="customized-dialog-title"
-                    >
-                      <Text
-                        as="h2"
-                        size="1"
-                        className="text-xl font-bold block "
-                      >
-                        {posts[voteCount[idx]?.id - 4]?.attributes?.title}
-                      </Text>
-                    </DialogTitle>
-                    <IconButton
-                      aria-label="close"
-                      onClick={() => handleClose(idx)}
-                      sx={{
-                        position: "absolute",
-                        right: 8,
-                        top: 8,
-                        color: (theme) => theme.palette.grey[500],
-                      }}
-                    >
-                      <CloseIcon />
-                    </IconButton>
-                    <DialogContent dividers>
-                      <Image
-                        src={
-                          process.env.NEXT_PUBLIC_BACKEND_URL +
-                          posts[voteCount[idx]?.id - 4]?.attributes?.photo?.data
-                            ?.attributes?.formats?.large?.url
-                        }
-                        width={500}
-                        className="w-full"
-                        height={100}
-                      />
-
-                      <Text as="h2" size="1" className="text-md my-3  block">
-                        {posts[voteCount[idx]?.id - 4]?.attributes?.description}
-                      </Text>
-                    </DialogContent>
-                    <DialogActions>
-                      <Button
-                        autoFocus
-                        onClick={() => handleSubmit(i.id)}
-                        variant="contained"
-                        disabled={voted}
-                      >
-                        Vote
-                      </Button>
-                    </DialogActions>
-                  </BootstrapDialog>
-                </div>
-              )
-          )}
-    </div>
+    <>
+      <Text
+        as="h2"
+        size="1"
+        className="md:text-6xl text-3xl font-bold mt-10  block text-center "
+      >
+        Pemenang
+      </Text>
+      <div className="grid xl:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6 2xl:px-52 lg:px-32 px-4 py-16">
+        {!(posts && voteCount)
+          ? [...Array(8)].map((_, index) => (
+              <div key={index} className="w-full">
+                <Skeleton
+                  className="bg-white"
+                  variant="rectangular"
+                  width="100%"
+                  height={200}
+                />
+                <Skeleton className="bg-white" width="60%" />
+                <Skeleton className="bg-white" width="80%" />
+                <Skeleton className="bg-white" width="40%" />
+              </div>
+            ))
+          : posts.map(
+              (i, idx) =>
+                posts[voteCount[idx]?.id - 4] && (
+                  <div key={i.id}>
+                    <CardCustom
+                      data={posts[voteCount[idx]?.id - 4]}
+                      count={idx + 1}
+                    />
+                  </div>
+                )
+            )}
+      </div>
+    </>
   );
 };
 

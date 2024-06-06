@@ -33,8 +33,8 @@ const CardCustom = ({ onClick, data, count }) => {
             }}
           />
         </Inset>
-        <Text as="p" size="4" className="mt-1 text-darkGold">
-          {count.count + " votes"}
+        <Text as="p" size="4" className="mt-1 text-darkGold text-xl font-bold">
+          {"Juara " + count}
         </Text>
         <Text as="h2" size="1" className="text-xl font-bold block ">
           {data?.attributes?.title}

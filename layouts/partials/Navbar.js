@@ -28,9 +28,9 @@ export default function Header() {
                 Presensi
               </div>
             </a>
-            <Link href={"/vote"}>
+            <Link href={"/result"}>
               <div className="rounded-full bg-primary hover:bg-secondary hover:cursor-pointer duration-100 text-sm lg:text-2xl text-white py-2 px-4 lg:px-8 font-sans font-bold">
-                VOTE NOW
+                HASIL
               </div>
             </Link>
           </div>
