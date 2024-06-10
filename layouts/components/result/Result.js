@@ -50,7 +50,25 @@ const Result = () => {
         });
       })
       .catch((e) => {});
-    setVoteCount([{ id: 29 }, { id: 22 }, { id: 16 }]);
+    setVoteCount([
+      {
+        id: 16,
+        notes: "Juara 1",
+      },
+      {
+        id: 19,
+        notes: "Juara 2",
+      },
+      { id: 26, notes: "Juara 3" },
+      { id: 25, notes: "Juara Favorit 1" },
+      { id: 24, notes: "Juara Favorit 2" },
+      { id: 28, notes: "Juara Favorit 3" },
+      { id: 8, notes: "Juara Favorit 4" },
+      { id: 15, notes: "Juara Favorit 5" },
+      { id: 17, notes: "Juara Favorit 6" },
+      { id: 21, notes: "Juara Favorit 7" },
+      { id: 10, notes: "Juara Favorit 8" },
+    ]);
   }, []);
 
   return (
@@ -83,7 +101,7 @@ const Result = () => {
                   <div key={i.id}>
                     <CardCustom
                       data={posts[voteCount[idx]?.id - 4]}
-                      count={idx + 1}
+                      count={voteCount[idx]}
                     />
                   </div>
                 )
